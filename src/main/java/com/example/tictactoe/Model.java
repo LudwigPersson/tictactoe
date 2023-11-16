@@ -23,19 +23,14 @@ public class Model {
             markedButtons[position] = true;
         }
     }
+
     public boolean isTie() {
-        for (boolean markedButton : markedButtons) {
-            if (!markedButton) {
-                return false;
-            }
-        }
-        return true;
+        return isBoardFull() && !checkWinner();
     }
 
     public void resetGame() {
         Arrays.fill(board, null);
         Arrays.fill(markedButtons, false);
-
     }
 
     public boolean checkWinner() {
@@ -65,11 +60,6 @@ public class Model {
             }
         }
 
-        if (isTie()) {
-            setWinner("TIE");
-            return true;
-        }
-
         return false;
     }
 
@@ -91,12 +81,17 @@ public class Model {
     }
 
     public boolean hasValidMoves() {
+        return !isBoardFull();
+    }
+
+    private boolean isBoardFull() {
         for (boolean markedButton : markedButtons) {
             if (!markedButton) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
+
 

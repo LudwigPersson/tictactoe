@@ -6,50 +6,50 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="409.0" prefWidth="431.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.GameController">
+<VBox alignment="CENTER" prefHeight="599.0" prefWidth="717.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.GameController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <Label alignment="TOP_CENTER" prefHeight="54.0" prefWidth="258.0" text="Tic Tac Toe">
         <font>
-            <Font name="Apple LiGothic Medium" size="46.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
         </font></Label>
-    <GridPane fx:id="gameButtonPane" prefHeight="304.0" prefWidth="361.0">
-        <Button fx:id="gameButton1" blendMode="DARKEN" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" textOverrun="CLIP" underline="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <GridPane fx:id="gameButtonPane" alignment="TOP_CENTER" prefHeight="304.0" prefWidth="678.0">
+        <Button fx:id="gameButton1" blendMode="DARKEN" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton2" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton3" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton4" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton5" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton6" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton7" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton8" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
         <Button fx:id="gameButton9" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="133.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
-            <Font name="Apple LiGothic Medium" size="25.0" />
+            <Font name="Apple LiGothic Medium" size="50.0" />
          </font></Button>
       <columnConstraints>
          <ColumnConstraints />
@@ -62,35 +62,33 @@
          <RowConstraints />
       </rowConstraints>
     </GridPane>
-    <Label fx:id="winnerText" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="5.0" prefHeight="32.0" prefWidth="188.0">
+    <Label fx:id="winnerText" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="5.0" prefHeight="63.0" prefWidth="268.0">
       <font>
-         <Font name="Apple LiGothic Medium" size="30.0" />
+         <Font name="Apple LiGothic Medium" size="50.0" />
       </font></Label>
     <HBox prefHeight="23.0" prefWidth="252.0">
         <Label text="X: ">
          <font>
-            <Font size="18.0" />
+            <Font size="25.0" />
          </font></Label>
         <Label fx:id="playerXScoreLabel" text="0">
          <font>
-            <Font size="18.0" />
+            <Font size="25.0" />
          </font></Label>
     </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
-      <children>
-           <Label text="O: ">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Label>
-           <Label fx:id="playerOScoreLabel" text="0">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-   <Button fx:id="resetButton" alignment="CENTER" cacheShape="false" centerShape="false" focusTraversable="false" mnemonicParsing="false" onAction="#handleResetButtonAction" prefHeight="26.0" prefWidth="58.0" scaleShape="false" snapToPixel="false" text="Reset">
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <Label text="O: ">
+         <font>
+             <Font size="25.0"/>
+         </font>
+        </Label>
+        <Label fx:id="playerOScoreLabel" text="0">
+         <font>
+             <Font size="25.0"/>
+         </font>
+        </Label>
+    </HBox>
+   <Button fx:id="resetButton" alignment="CENTER" cacheShape="false" centerShape="false" focusTraversable="false" mnemonicParsing="false" onAction="#handleResetButtonAction" prefHeight="41.0" prefWidth="128.0" scaleShape="false" snapToPixel="false" text="Reset">
       <cursor>
          <Cursor fx:constant="DEFAULT" />
       </cursor>

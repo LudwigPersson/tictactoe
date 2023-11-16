@@ -1,18 +1,14 @@
 package com.example.tictactoe;
 
-import javafx.scene.control.Button;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Model {
-    public String[] board = new String[9];
-    private final Button[] gameButtons;
-    boolean[] markedButtons;
+    private final String[] board = new String[9];
+    private final boolean[] markedButtons;
     private String currentPlayer;
 
-
-    public Model(Button[] gameButtons) {
-        this.gameButtons = gameButtons;
+    public Model() {
         currentPlayer = "X";
         markedButtons = new boolean[9];
     }
@@ -21,13 +17,10 @@ public class Model {
         return markedButtons[buttonIndex];
     }
 
-    public void markButton(int position, String marker) {
-        if (!markedButtons[position]) {
-            Button button = gameButtons[position];
-            button.setText(marker);
-            button.setDisable(true);
-            markedButtons[position] = true;
+    public void markedButton(int position, String marker) {
+        if (!markedButtons[position] && ("X".equals(marker) || "O".equals(marker))) {
             board[position] = marker;
+            markedButtons[position] = true;
         }
     }
     public boolean isTie() {
@@ -43,22 +36,24 @@ public class Model {
         Arrays.fill(board, null);
         Arrays.fill(markedButtons, false);
 
-        for (Button button : gameButtons) {
-            button.setText("");
-            button.setDisable(false);
-        }
     }
+
     public boolean checkWinner() {
-        int[][] winningCombinations = {
-                {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
-                {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
-                {0, 4, 8}, {2, 4, 6}
+        int[] winningCombinations = {
+                0, 1, 2,
+                3, 4, 5,
+                6, 7, 8,
+                0, 3, 6,
+                1, 4, 7,
+                2, 5, 8,
+                0, 4, 8,
+                2, 4, 6
         };
 
-        for (int[] combination : winningCombinations) {
-            int index1 = combination[0];
-            int index2 = combination[1];
-            int index3 = combination[2];
+        for (int i = 0; i < winningCombinations.length; i += 3) {
+            int index1 = winningCombinations[i];
+            int index2 = winningCombinations[i + 1];
+            int index3 = winningCombinations[i + 2];
 
             String marker1 = board[index1];
             String marker2 = board[index2];
@@ -91,14 +86,17 @@ public class Model {
         return currentPlayer;
     }
 
-    public void togglePlayer(String winner) {
-        if (winner.equals("X")) {
-            currentPlayer = "O";
-        } else if (winner.equals("O")) {
-            currentPlayer = "X";
-        }
+    public void setWinner(String winner) {
+        currentPlayer = winner;
     }
-    private void setWinner(String marker) {
-        currentPlayer = marker;
+
+    public boolean hasValidMoves() {
+        for (boolean markedButton : markedButtons) {
+            if (!markedButton) {
+                return true;
+            }
+        }
+        return false;
     }
 }
+

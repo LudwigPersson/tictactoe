@@ -43,50 +43,46 @@ public class GameController {
     @FXML
     public void initialize() {
         gameButtons = new Button[]{gameButton1, gameButton2, gameButton3, gameButton4, gameButton5, gameButton6, gameButton7, gameButton8, gameButton9};
-        model = new Model(gameButtons);
+        model = new Model();
         Arrays.asList(gameButtons).forEach(button -> {
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, this::handleButtonAction);
             button.setDisable(false);
             button.setText("");
         });
-
         model.resetGame();
     }
+
     @FXML
     public void handleButtonAction(MouseEvent event) {
         Button clickedButton = (Button) event.getSource();
         int buttonIndex = Arrays.asList(gameButtons).indexOf(clickedButton);
 
-        if (model.isMarked(buttonIndex)) {
+        if (model.isMarked(buttonIndex) || model.checkWinner()) {
             return;
         }
 
-        model.markButton(buttonIndex, "X");
-        clickedButton.setText("X");
+        String currentPlayer = model.getCurrentPlayer();
+        model.markedButton(buttonIndex, currentPlayer);
+        clickedButton.setText(currentPlayer);
 
         if (model.checkWinner()) {
-            handleGameResult();
+            handleGameResult(model.getCurrentPlayer());
+        } else if (model.isTie()) {
+            handleGameResult("TIE");
         } else {
-            model.togglePlayer(model.getCurrentPlayer());
-
-            if (!model.checkWinner()) {
+            if (currentPlayer.equals("X")) {
                 int computerMove = model.generateRandomMove();
-                model.markButton(computerMove, "O");
+                model.markedButton(computerMove, "O");
                 gameButtons[computerMove].setText("O");
-            }
 
-            if (model.checkWinner()) {
-                handleGameResult();
-            } else {
-                model.togglePlayer(model.getCurrentPlayer());
+                if (model.checkWinner()) {
+                    handleGameResult("O");
+                }
             }
         }
     }
-
     @FXML
-    private void handleGameResult() {
-        String winner = model.getCurrentPlayer();
-
+    private void handleGameResult(String winner) {
         if (winner.equals("TIE")) {
             winnerText.setText("It's a tie");
         } else {
@@ -104,43 +100,51 @@ public class GameController {
 
         disableGameButtons();
 
-        PauseTransition pause = new PauseTransition(Duration.seconds(20));
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             enableGameButtons();
             winnerText.setText("");
             model.resetGame();
+            resetBoard();
         });
         pause.play();
     }
-
-    private void disableGameButtons() {
-        for (Button button : gameButtons) {
-            button.setDisable(true);
-        }
-    }
-    private void enableGameButtons() {
-        Arrays.asList(gameButtons).forEach(button -> button.setDisable(false));
-    }
-
     @FXML
     private void handleResetButtonAction() {
         model.resetGame();
 
+        for (Button button : gameButtons) {
+            button.setDisable(false);
+            button.setText("");
+        }
 
         playerXScore = 0;
         playerOScore = 0;
-
-
         playerXScoreLabel.setText("0");
         playerOScoreLabel.setText("0");
-
-        enableGameButtons();
         winnerText.setText("");
 
+        enableGameButtons();
+    }
 
-        model.togglePlayer("X");
+    private void resetBoard() {
+        Arrays.asList(gameButtons).forEach(button -> {
+            button.setText("");
+            button.setDisable(false);
+        });
+        model.setWinner("X");
+    }
+
+    private void enableGameButtons() {
+        Arrays.asList(gameButtons).forEach(button -> button.setDisable(false));
+    }
+
+    private void disableGameButtons() {
+        Arrays.asList(gameButtons).forEach(button -> button.setDisable(true));
     }
 }
+
+
 
 
 
